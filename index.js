@@ -49,7 +49,7 @@ var config = {
 	hashConcat: '.',
 
 	// 域名
-	domain: '//localhost/kf/',
+	domain: '',
 
 	module: {
 		tasks: [
