@@ -1,14 +1,13 @@
 var path = require('path');
 
 var amdParse = require('miaow-amd-parse');
-var amdWrap = require('miaow-amd-wrap');
-var replace = require('miaow-replace');
-var liveReload = require('miaow-livereload');
-var urlParse = require('miaow-url-parse');
+var autoprefixer = require('miaow-css-autoprefixer');
 var ftlParse = require('miaow-ftl-parse');
 var inlineParse = require('miaow-inline-parse');
 var lessParse = require('miaow-less-parse');
-var autoprefixer = require('miaow-css-autoprefixer');
+var liveReload = require('miaow-livereload');
+var replace = require('miaow-replace');
+var urlParse = require('miaow-url-parse');
 
 
 var inlineContentParse = {
@@ -30,7 +29,7 @@ var config = {
 	// 缓存目录
 	cache: path.resolve('./cache'),
 
-	environment: 'default',
+	environment: 'development',
 
 	// 排除目录
 	exclude: [
@@ -69,8 +68,12 @@ var config = {
 						}
 					},
 					urlParse,
-					amdParse,
-					amdWrap,
+					{
+						plugin: amdParse,
+						option: {
+							ignore: ['jquery']
+						}
+					},
 					inlineContentParse
 				]
 			},
