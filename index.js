@@ -10,6 +10,12 @@ var replace = require('miaow-replace');
 var urlParse = require('miaow-url-parse');
 
 
+var cssUrlParse = {
+	plugin: urlParse,
+	option: {
+		reg: /url\s*\(\s*['"]?([\w_\/\.\-]+)(?:[?#].*?)?['"]?\)/g
+	}
+};
 var inlineContentParse = {
 	plugin: inlineParse,
 	option: {
@@ -29,11 +35,12 @@ var config = {
 	// 缓存目录
 	cache: path.resolve('./cache'),
 
-	environment: 'development',
+	environment: 'default',
 
 	// 排除目录
 	exclude: [
 		'**/node_modules/**/*',
+		'**/*.md',
 		'**/bower.json',
 		'**/gulpfile.js',
 		'**/miaow.config.js',
@@ -82,6 +89,7 @@ var config = {
 				test: /\.css$/,
 				plugins: [
 					urlParse,
+					cssUrlParse,
 					autoprefixer,
 					inlineContentParse
 				]
@@ -92,6 +100,7 @@ var config = {
 				plugins: [
 					urlParse,
 					lessParse,
+					cssUrlParse,
 					autoprefixer,
 					inlineContentParse
 				]
