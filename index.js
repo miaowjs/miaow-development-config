@@ -132,6 +132,26 @@ var config = {
 					},
 					inlineContentParse
 				]
+			},
+
+			{
+				test: /\.htm[l]?$/,
+				plugins: [
+					urlParse,
+					{
+						plugin: replace,
+						option: {
+							replace: [{test: /__debug__/g, value: 'true'}]
+						}
+					},
+					{
+						plugin: liveReload,
+						option: {
+							placeholder: '<!-- livereload -->'
+						}
+					},
+					inlineContentParse
+				]
 			}
 		],
 
