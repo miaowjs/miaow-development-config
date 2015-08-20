@@ -1,7 +1,7 @@
 {
 	"name": "miaow-development-config",
 	"description": "开发模式的配置",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"dependencies": {
 		"miaow-amd-parse": "~3.0.1",
 		"miaow-css-autoprefixer": "~0.3.0",
