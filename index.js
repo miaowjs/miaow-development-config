@@ -59,9 +59,9 @@ var config = {
 
 	module: {
 		tasks: [
-			// ftl动态假数据, RequireJS和jQuery也不做处理
+			// ftl动态假数据, RequireJS和jQuery(及其目录下的)也不做处理
 			{
-				test: /(?:\.ftl|require|jquery)\.js$/,
+				test: /(?:\.ftl|require|jquery|jquery\/.*)\.js$/,
 				plugins: []
 			},
 
