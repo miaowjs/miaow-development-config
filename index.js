@@ -61,7 +61,7 @@ var config = {
 		tasks: [
 			// ftl动态假数据, RequireJS和jQuery(及其目录下的)也不做处理
 			{
-				test: /(?:\.ftl|require|jquery|jquery\/.*|echarts|echarts\/.*)\.js$/,
+				test: /(?:\.ftl|require|jquery\/?.*|echarts\/?.*|zrender\/?.*)\.js$/,
 				plugins: []
 			},
 
@@ -78,7 +78,7 @@ var config = {
 					{
 						plugin: amdParse,
 						option: {
-							ignore: ['jquery', /^echarts/]
+							ignore: ['jquery', /^echarts/, /^zrender/]
 						}
 					},
 					inlineContentParse
