@@ -1,6 +1,7 @@
 var path = require('path');
 
 var amdParse = require('miaow-amd-parse');
+var amdWrap = require('miaow-amd-wrap');
 var autoprefixer = require('miaow-css-autoprefixer');
 var ftlParse = require('miaow-ftl-parse');
 var inlineParse = require('miaow-inline-parse');
@@ -39,13 +40,17 @@ var config = {
 
 	// 排除目录
 	exclude: [
+		'build/**/*',
+		'cache/**/*',
+		'release/**/*',
 		'**/node_modules/**/*',
 		'**/*.md',
 		'**/bower.json',
 		'**/gulpfile.js',
 		'**/miaow.config.js',
 		'**/miaow.local.js',
-		'**/package.json'
+		'**/package.json',
+		'**/webpack.config.js'
 	],
 
 	// 不追加hash
@@ -75,6 +80,7 @@ var config = {
 						}
 					},
 					urlParse,
+					amdWrap,
 					{
 						plugin: amdParse,
 						option: {
