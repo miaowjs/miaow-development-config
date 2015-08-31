@@ -63,14 +63,27 @@ var config = {
 	domain: '',
 
 	module: {
-		tasks: [
-			// ftl动态假数据, RequireJS和jQuery(及其目录下的)也不做处理
-			{
+		pluginMap: {
+			amdParse: amdParse,
+			amdWrap: amdWrap,
+			autoprefixer: autoprefixer,
+			cssUrlParse: cssUrlParse,
+			ftlParse: ftlParse,
+			inlineContentParse: inlineContentParse,
+			inlineParse: inlineParse,
+			lessParse: lessParse,
+			liveReload: liveReload,
+			replace: replace,
+			urlParse: urlParse
+		},
+
+		taskMap: {
+			empty: {
 				test: /(?:\.ftl|require|jquery\/.*|echarts\/.*|zrender\/.*)\.js$/,
 				plugins: []
 			},
 
-			{
+			js: {
 				test: /\.js$/,
 				plugins: [
 					{
@@ -90,7 +103,7 @@ var config = {
 				]
 			},
 
-			{
+			css: {
 				test: /\.css$/,
 				plugins: [
 					urlParse,
@@ -100,7 +113,7 @@ var config = {
 				]
 			},
 
-			{
+			less: {
 				test: /\.less$/,
 				plugins: [
 					urlParse,
@@ -111,7 +124,7 @@ var config = {
 				]
 			},
 
-			{
+			ftl: {
 				test: /\.ftl$/,
 				plugins: [
 					urlParse,
@@ -139,7 +152,7 @@ var config = {
 				]
 			},
 
-			{
+			html: {
 				test: /\.htm[l]?$/,
 				plugins: [
 					urlParse,
@@ -158,7 +171,9 @@ var config = {
 					inlineContentParse
 				]
 			}
-		],
+		},
+
+		tasks: ['empty', 'js', 'css', 'less', 'ftl', 'html'],
 
 		// 文件生成配置
 		road: [
