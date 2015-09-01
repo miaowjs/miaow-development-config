@@ -79,7 +79,10 @@ var config = {
 
 		taskMap: {
 			empty: {
-				test: /(?:\.ftl|require|jquery\/.*|echarts\/.*|zrender\/.*)\.js$/,
+				test: [
+					'**/*.ftl.js',
+					'**/+(jquery|requirejs|echarts|zrender)/**/*'
+				],
 				plugins: []
 			},
 
