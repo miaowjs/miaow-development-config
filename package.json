@@ -1,7 +1,7 @@
 {
 	"name": "miaow-development-config",
 	"description": "开发模式的配置",
-	"version": "0.0.12",
+	"version": "0.0.13",
 	"dependencies": {
 		"miaow-amd-parse": "~3.2.0",
 		"miaow-amd-wrap": "~2.0.0",
