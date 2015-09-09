@@ -121,7 +121,6 @@ var config = {
 				plugins: [
 					urlParse,
 					lessParse,
-					cssUrlParse,
 					autoprefixer,
 					inlineContentParse
 				]
