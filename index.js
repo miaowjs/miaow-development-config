@@ -172,10 +172,18 @@ var config = {
 					},
 					inlineContentParse
 				]
+			},
+
+			text: {
+				test: /\.tpl$/,
+				plugin: [
+					urlParse,
+					inlineContentParse
+				]
 			}
 		},
 
-		tasks: ['empty', 'js', 'css', 'less', 'ftl', 'html'],
+		tasks: ['empty', 'js', 'css', 'less', 'ftl', 'html', 'text'],
 
 		// 文件生成配置
 		road: [
