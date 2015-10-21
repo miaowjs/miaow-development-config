@@ -111,7 +111,12 @@ var config = {
 				plugins: [
 					urlParse,
 					cssUrlParse,
-					autoprefixer,
+					{
+						plugin: autoprefixer,
+						option: {
+							browsers: ['> 1%', 'last 2 versions', 'Firefox ESR', 'Android >= 2.1']
+						}
+					},
 					inlineContentParse
 				]
 			},
@@ -121,7 +126,12 @@ var config = {
 				plugins: [
 					urlParse,
 					lessParse,
-					autoprefixer,
+					{
+						plugin: autoprefixer,
+						option: {
+							browsers: ['> 1%', 'last 2 versions', 'Firefox ESR', 'Android >= 2.1']
+						}
+					},
 					inlineContentParse
 				]
 			},
@@ -176,7 +186,7 @@ var config = {
 
 			text: {
 				test: /\.tpl$/,
-				plugin: [
+				plugins: [
 					urlParse,
 					inlineContentParse
 				]
