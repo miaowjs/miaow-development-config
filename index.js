@@ -1,8 +1,7 @@
 var path = require('path');
 
 var amdParse = require('miaow-amd-parse');
-var amdWrap = require('miaow-amd-wrap');
-var autoprefixer = require('miaow-css-autoprefixer');
+var babelParse = require('miaow-babel-parse');
 var ftlParse = require('miaow-ftl-parse');
 var inlineParse = require('miaow-inline-parse');
 var lessParse = require('miaow-less-parse');
@@ -10,25 +9,40 @@ var liveReload = require('miaow-livereload');
 var replace = require('miaow-replace');
 var urlParse = require('miaow-url-parse');
 
+var ThirdPartyPlugin = require('miaow-thirdparty-plugin');
+var PackPlugin = require('miaow-pack-plugin');
 
+
+var autoprefixer = {
+	task: require('miaow-css-autoprefixer'),
+	options: {
+		browsers: ['> 1%', 'last 2 versions', 'Firefox ESR', 'Android >= 2.1']
+	}
+};
 var cssUrlParse = {
-	plugin: urlParse,
-	option: {
-		reg: /url\s*\(\s*['"]?([\w_\/\.\-]+)(?:[?#].*?)?['"]?\)/g
+	task: urlParse,
+	options: {
+		regexp: /url\s*\(\s*['"]?([\w_\/\.\-]+)(?:[?#].*?)?['"]?\)/g
 	}
 };
 var inlineContentParse = {
-	plugin: inlineParse,
-	option: {
+	task: inlineParse,
+	options: {
 		regexp: /((?:\/\*|<!--)\s*inline\s+['"]([\w\_\/\.\-]+)['"]\s*(?:\*\/|-->))/g,
 		type: 'content'
+	}
+};
+var debugReplace = {
+	task: replace,
+	options: {
+		replace: [{test: /__debug__/g, value: 'true'}]
 	}
 };
 
 // 默认配置
 var config = {
 	// 工作目录
-	cwd: path.resolve('./src'),
+	context: path.resolve('./src'),
 
 	// 输出目录
 	output: path.resolve('./build'),
@@ -54,7 +68,7 @@ var config = {
 	],
 
 	// 不追加hash
-	hash: 0,
+	hashLength: 0,
 
 	// hash值连接符
 	hashConcat: '.',
@@ -62,157 +76,120 @@ var config = {
 	// 域名
 	domain: '',
 
-	module: {
-		pluginMap: {
-			amdParse: amdParse,
-			amdWrap: amdWrap,
-			autoprefixer: autoprefixer,
-			cssUrlParse: cssUrlParse,
-			ftlParse: ftlParse,
-			inlineContentParse: inlineContentParse,
-			inlineParse: inlineParse,
-			lessParse: lessParse,
-			liveReload: liveReload,
-			replace: replace,
-			urlParse: urlParse
+	plugins: [
+		new ThirdPartyPlugin({test: '*.+(js|es6)', tasks: []}),
+		new PackPlugin({debug: true})
+	],
+
+	modules: [
+		{
+			test: '*.ftl.js',
+			tasks: []
 		},
 
-		taskMap: {
-			empty: {
-				test: [
-					'**/*.ftl.js',
-					'**/+(jquery|requirejs|echarts|zrender)/**/*'
-				],
-				plugins: []
-			},
-
-			js: {
-				test: /\.js$/,
-				plugins: [
-					{
-						plugin: replace,
-						option: {
-							replace: [{test: /__debug__/g, value: 'true'}]
-						}
-					},
-					urlParse,
-					{
-						plugin: amdParse,
-						option: {
-							ignore: ['jquery', /^echarts/, /^zrender/]
-						}
-					},
-					inlineContentParse
-				]
-			},
-
-			css: {
-				test: /\.css$/,
-				plugins: [
-					urlParse,
-					cssUrlParse,
-					{
-						plugin: autoprefixer,
-						option: {
-							browsers: ['> 1%', 'last 2 versions', 'Firefox ESR', 'Android >= 2.1']
-						}
-					},
-					inlineContentParse
-				]
-			},
-
-			less: {
-				test: /\.less$/,
-				plugins: [
-					urlParse,
-					lessParse,
-					{
-						plugin: autoprefixer,
-						option: {
-							browsers: ['> 1%', 'last 2 versions', 'Firefox ESR', 'Android >= 2.1']
-						}
-					},
-					inlineContentParse
-				]
-			},
-
-			ftl: {
-				test: /\.ftl$/,
-				plugins: [
-					urlParse,
-					{
-						plugin: replace,
-						option: {
-							replace: [{test: /__debug__/g, value: 'true'}]
-						}
-					},
-					{
-						plugin: ftlParse,
-						option: {
-							macroNameList: ['static', 'docHead', 'docFoot', 'jsFile', 'cssFile'],
-							macroArgList: ['js', 'css', 'file', 'mockjax'],
-							macroDebug: false
-						}
-					},
-					{
-						plugin: liveReload,
-						option: {
-							placeholder: '<#-- livereload -->'
-						}
-					},
-					inlineContentParse
-				]
-			},
-
-			html: {
-				test: /\.htm[l]?$/,
-				plugins: [
-					urlParse,
-					{
-						plugin: replace,
-						option: {
-							replace: [{test: /__debug__/g, value: 'true'}]
-						}
-					},
-					{
-						plugin: liveReload,
-						option: {
-							placeholder: '<!-- livereload -->'
-						}
-					},
-					inlineContentParse
-				]
-			},
-
-			text: {
-				test: /\.tpl$/,
-				plugins: [
-					urlParse,
-					inlineContentParse
-				]
-			}
+		{
+			test: '*.js',
+			tasks: [
+				debugReplace,
+				urlParse,
+				{
+					task: amdParse,
+					options: {
+						debug: true
+					}
+				},
+				inlineContentParse
+			]
 		},
 
-		tasks: ['empty', 'js', 'css', 'less', 'ftl', 'html', 'text'],
+		{
+			test: '*.es6',
+			ext: '.js',
+			tasks: [
+				debugReplace,
+				urlParse,
+				{
+					task: babelParse,
+					options: {
+						blacklist: ['strict'],
+						optional: ['es7.classProperties'],
+						modules: 'amd'
+					}
+				},
+				{
+					task: amdParse,
+					options: {
+						debug: true
+					}
+				},
+				inlineContentParse
+			]
+		},
 
-		// 文件生成配置
-		road: [
-			{
-				test: /\.ftl$/,
-				useHash: false,
-				domain: ''
-			},
+		{
+			test: '*.css',
+			tasks: [
+				urlParse,
+				cssUrlParse,
+				autoprefixer,
+				inlineContentParse
+			]
+		},
 
-			{
-				test: /(.*)\.less$/,
-				release: '$1.css'
-			}
-		]
-	},
+		{
+			test: '*.less',
+			ext: '.css',
+			tasks: [
+				urlParse,
+				lessParse,
+				autoprefixer,
+				inlineContentParse
+			]
+		},
+
+		{
+			test: '*.ftl',
+			domain: '',
+			hashLength: 0,
+			tasks: [
+				urlParse,
+				debugReplace,
+				{
+					task: ftlParse,
+					options: {
+						macroNameList: ['static', 'docHead', 'docFoot', 'jsFile', 'cssFile'],
+						macroArgList: ['js', 'css', 'file', 'mockjax']
+					}
+				},
+				{
+					task: liveReload,
+					options: {
+						placeholder: '<#-- livereload -->'
+					}
+				},
+				inlineContentParse
+			]
+		},
+
+		{
+			test: '*.+(html|tpl)',
+			tasks: [
+				urlParse,
+				debugReplace,
+				{
+					task: liveReload,
+					options: {
+						placeholder: '<!-- livereload -->'
+					}
+				},
+				inlineContentParse
+			]
+		}
+	],
 
 	resolve: {
 		moduleDirectory: ['common', ".remote"],
-		extensions: ['.js'],
+		extensions: ['.js', '.es6'],
 		extensionAlias: {
 			'.css': ['.less']
 		}
