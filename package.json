@@ -2,6 +2,11 @@
 	"name": "miaow-development-config",
 	"description": "开发模式的配置",
 	"version": "1.0.0",
+	"repository": "miaowjs/miaow-development-config",
+	"author": {
+		"name": "anhulife",
+		"email": "anhulife@gmail.com"
+	},
 	"dependencies": {
 		"miaow-amd-parse": "~4.0.6",
 		"miaow-babel-parse": "~1.0.0",
