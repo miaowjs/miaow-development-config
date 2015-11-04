@@ -19,5 +19,8 @@
 		"miaow-url-parse": "~3.0.1",
 		"miaow-pack-plugin": "~0.0.2",
 		"miaow-thirdparty-plugin": "~0.0.1"
+	},
+	"scripts": {
+		"postpublish": "cnpm sync miaow-development-config"
 	}
 }
