@@ -1,14 +1,14 @@
 {
 	"name": "miaow-development-config",
 	"description": "开发模式的配置",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"repository": "miaowjs/miaow-development-config",
 	"author": {
 		"name": "anhulife",
 		"email": "anhulife@gmail.com"
 	},
 	"dependencies": {
-		"miaow-amd-parse": "~4.0.6",
+		"miaow-amd-parse": "~4.0.7",
 		"miaow-babel-parse": "~1.0.0",
 		"miaow-css-autoprefixer": "~1.0.0",
 		"miaow-ftl-parse": "~2.0.1",
