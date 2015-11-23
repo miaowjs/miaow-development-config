@@ -1,7 +1,7 @@
 {
 	"name": "miaow-development-config",
 	"description": "开发模式的配置",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"repository": "miaowjs/miaow-development-config",
 	"author": {
 		"name": "anhulife",
@@ -10,10 +10,10 @@
 	"dependencies": {
 		"miaow-amd-parse": "~4.0.7",
 		"miaow-babel-parse": "~1.0.0",
-		"miaow-css-autoprefixer": "~1.0.0",
+		"miaow-css-autoprefixer": "~1.0.1",
 		"miaow-ftl-parse": "~2.0.1",
 		"miaow-inline-parse": "~3.0.1",
-		"miaow-less-parse": "~2.0.3",
+		"miaow-less-parse": "~2.0.4",
 		"miaow-livereload": "~1.0.0",
 		"miaow-replace": "~1.0.0",
 		"miaow-url-parse": "~3.0.1",
