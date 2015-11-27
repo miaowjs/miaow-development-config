@@ -12,19 +12,20 @@ var urlParse = require('miaow-url-parse');
 var ThirdPartyPlugin = require('miaow-thirdparty-plugin');
 var PackPlugin = require('miaow-pack-plugin');
 
-
 var autoprefixer = {
 	task: require('miaow-css-autoprefixer'),
 	options: {
 		browsers: ['> 1%', 'last 2 versions', 'Firefox ESR', 'Android >= 2.1']
 	}
 };
+
 var cssUrlParse = {
 	task: urlParse,
 	options: {
 		regexp: /url\s*\(\s*['"]?([\w_\/\.\-]+)(?:[?#].*?)?['"]?\)/g
 	}
 };
+
 var inlineContentParse = {
 	task: inlineParse,
 	options: {
@@ -32,6 +33,7 @@ var inlineContentParse = {
 		type: 'content'
 	}
 };
+
 var debugReplace = {
 	task: replace,
 	options: {
@@ -76,6 +78,9 @@ var config = {
 	// 域名
 	domain: '',
 
+	// 调试模式
+	debug: true,
+
 	plugins: [
 		new ThirdPartyPlugin({test: '*.+(js|es6)', tasks: []}),
 		new PackPlugin({debug: true})
@@ -84,20 +89,20 @@ var config = {
 	modules: [
 		{
 			test: '*.ftl.js',
-			tasks: []
+			tasks: [
+				inlineParse,
+				urlParse,
+				inlineContentParse
+			]
 		},
 
 		{
 			test: '*.js',
 			tasks: [
 				debugReplace,
+				inlineParse,
 				urlParse,
-				{
-					task: amdParse,
-					options: {
-						debug: true
-					}
-				},
+				amdParse,
 				inlineContentParse
 			]
 		},
@@ -107,6 +112,7 @@ var config = {
 			ext: '.js',
 			tasks: [
 				debugReplace,
+				inlineParse,
 				urlParse,
 				{
 					task: babelParse,
@@ -116,12 +122,7 @@ var config = {
 						modules: 'amd'
 					}
 				},
-				{
-					task: amdParse,
-					options: {
-						debug: true
-					}
-				},
+				amdParse,
 				inlineContentParse
 			]
 		},
@@ -129,6 +130,7 @@ var config = {
 		{
 			test: '*.css',
 			tasks: [
+				inlineParse,
 				urlParse,
 				cssUrlParse,
 				autoprefixer,
@@ -140,6 +142,7 @@ var config = {
 			test: '*.less',
 			ext: '.css',
 			tasks: [
+				inlineParse,
 				urlParse,
 				lessParse,
 				autoprefixer,
@@ -152,6 +155,7 @@ var config = {
 			domain: '',
 			hashLength: 0,
 			tasks: [
+				inlineParse,
 				urlParse,
 				debugReplace,
 				{
@@ -172,8 +176,9 @@ var config = {
 		},
 
 		{
-			test: '*.+(html|tpl)',
+			test: '*.+(htm|html|tpl)',
 			tasks: [
+				inlineParse,
 				urlParse,
 				debugReplace,
 				{
@@ -188,10 +193,11 @@ var config = {
 	],
 
 	resolve: {
-		moduleDirectory: ['common', ".remote"],
+		moduleDirectory: ['common', '.remote'],
 		extensions: ['.js', '.es6'],
 		extensionAlias: {
-			'.css': ['.less']
+			'.css': ['.less'],
+			'.js': ['.es6']
 		}
 	}
 };
