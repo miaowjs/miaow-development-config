@@ -83,7 +83,7 @@ var config = {
 
 	plugins: [
 		new ThirdPartyPlugin({test: '*.+(js|es6)', tasks: []}),
-		new PackPlugin({debug: true})
+		new PackPlugin()
 	],
 
 	modules: [
