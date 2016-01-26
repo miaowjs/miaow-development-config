@@ -15,7 +15,7 @@ var PackPlugin = require('miaow-pack-plugin');
 var autoprefixer = {
 	task: require('miaow-css-autoprefixer'),
 	options: {
-		browsers: ['> 1%', 'last 2 versions', 'Firefox ESR', 'Android >= 2.1']
+		browsers: ['> 1%', 'last 2 versions', 'iOS >= 6', 'Android >= 2.1', 'Explorer >= 7', 'Firefox >= 38', 'Chrome >= 30']
 	}
 };
 
