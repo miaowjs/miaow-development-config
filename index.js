@@ -22,7 +22,7 @@ var autoprefixer = {
 var cssUrlParse = {
 	task: urlParse,
 	options: {
-		regexp: /url\s*\(\s*['"]?([\w_\/\.\-]+)(?:[?#].*?)?['"]?\)/g
+		regexp: /url\s*\(\s*['"]?([^\/][\w_\/\.\-]*)(?:[?#].*?)?['"]?\)/g
 	}
 };
 
