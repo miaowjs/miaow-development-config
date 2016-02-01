@@ -144,6 +144,7 @@ var config = {
 				inlineParse,
 				urlParse,
 				lessParse,
+				cssUrlParse,
 				autoprefixer,
 				inlineContentParse
 			]

@@ -13,7 +13,7 @@
 		"miaow-css-autoprefixer": "~1.0.1",
 		"miaow-ftl-parse": "~2.0.1",
 		"miaow-inline-parse": "~3.0.1",
-		"miaow-less-parse": "~2.0.4",
+		"miaow-less-parse": "~3.0.0",
 		"miaow-livereload": "~1.0.0",
 		"miaow-replace": "~1.0.0",
 		"miaow-url-parse": "~3.0.1",
