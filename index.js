@@ -59,6 +59,7 @@ var config = {
 		'build/**/*',
 		'cache/**/*',
 		'release/**/*',
+		'**/bower_components/**/*',
 		'**/node_modules/**/*',
 		'**/*.md',
 		'**/bower.json',
@@ -193,7 +194,7 @@ var config = {
 	],
 
 	resolve: {
-		moduleDirectory: ['common', '.remote'],
+		moduleDirectory: ['common', '.remote', 'bower_components'],
 		extensions: ['.js', '.es6'],
 		extensionAlias: {
 			'.css': ['.less'],
