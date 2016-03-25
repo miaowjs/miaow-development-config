@@ -1,5 +1,10 @@
 # Changelog
 
+### 1.4.2
+
+* 更新 AMD 编译模块的版本依赖
+* 增加 bower_components 到排除目录和公共模块查询目录
+
 ### 1.4.1
 
 * 修复样式文件的 URL 匹配正则表达式, 避免匹配 url('//foo.com/foo.png') 出问题
