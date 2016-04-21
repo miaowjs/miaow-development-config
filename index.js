@@ -34,12 +34,28 @@ var inlineContentParse = {
 	}
 };
 
-var debugReplace = {
+var contentReplace = {
 	task: replace,
 	options: {
-		replace: [{test: /__debug__/g, value: 'true'}]
+		replace: [
+			{test: /__debug__/g, value: '<%= debug %>'},
+			{test: /__cdn__/g, value: '<%= domain %>'}
+		]
 	}
 };
+
+var oldModules = [
+	{
+		test: 'old/**/*.+(js|css|ftl|htm|html|tpl)',
+		tasks: [
+			contentReplace
+		]
+	},
+	{
+		test: 'old/**/*',
+		tasks: []
+	}
+];
 
 // 默认配置
 var config = {
@@ -86,7 +102,7 @@ var config = {
 		new PackPlugin()
 	],
 
-	modules: [
+	modules: oldModules.concat([
 		{
 			test: '*.ftl.js',
 			tasks: [
@@ -99,7 +115,7 @@ var config = {
 		{
 			test: '*.js',
 			tasks: [
-				debugReplace,
+				contentReplace,
 				inlineParse,
 				urlParse,
 				amdParse,
@@ -111,7 +127,7 @@ var config = {
 			test: '*.es6',
 			ext: '.js',
 			tasks: [
-				debugReplace,
+				contentReplace,
 				inlineParse,
 				urlParse,
 				{
@@ -158,7 +174,7 @@ var config = {
 			tasks: [
 				inlineParse,
 				urlParse,
-				debugReplace,
+				contentReplace,
 				{
 					task: ftlParse,
 					options: {
@@ -181,7 +197,7 @@ var config = {
 			tasks: [
 				inlineParse,
 				urlParse,
-				debugReplace,
+				contentReplace,
 				{
 					task: liveReload,
 					options: {
@@ -191,7 +207,7 @@ var config = {
 				inlineContentParse
 			]
 		}
-	],
+	]),
 
 	resolve: {
 		moduleDirectory: ['common', '.remote', 'bower_components'],
