@@ -46,12 +46,6 @@ var contentReplace = {
 
 var oldModules = [
 	{
-		test: 'old/**/*.+(js|css|ftl|htm|html|tpl)',
-		tasks: [
-			contentReplace
-		]
-	},
-	{
 		test: 'old/**/*',
 		tasks: []
 	}
