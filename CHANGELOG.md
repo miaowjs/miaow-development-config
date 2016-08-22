@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.9.0
+
+* 增加vue parse 以支持 vue 单文件
+
 ### 1.8.0
 
 * 更新`AMD`模块插件版本，增加`CSS Modules`部分支持，暂不支持`Composition`功能
