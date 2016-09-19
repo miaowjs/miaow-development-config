@@ -45,13 +45,6 @@ var contentReplace = {
 	}
 };
 
-var oldModules = [
-	{
-		test: 'old/**/*',
-		tasks: []
-	}
-];
-
 // 默认配置
 var config = {
 	// 工作目录
@@ -70,6 +63,7 @@ var config = {
 		'build/**/*',
 		'cache/**/*',
 		'release/**/*',
+		'old/**/*',
 		'**/bower_components/**/*',
 		'**/node_modules/**/*',
 		'**/*.md',
@@ -97,7 +91,7 @@ var config = {
 		new PackPlugin()
 	],
 
-	modules: oldModules.concat([
+	modules: [
 		{
 			test: '*.ftl.js',
 			tasks: [
@@ -215,7 +209,7 @@ var config = {
 				inlineContentParse
 			]
 		}
-	]),
+	],
 
 	resolve: {
 		moduleDirectory: ['common', '.remote', 'bower_components'],
