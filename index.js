@@ -8,7 +8,7 @@ var lessParse = require('miaow-less-parse');
 var liveReload = require('miaow-livereload');
 var replace = require('miaow-replace');
 var urlParse = require('miaow-url-parse');
-var vueParse = require('miaow-vue-parse');
+var vueParse = require('miaow-vue-parse2');
 
 var ThirdPartyPlugin = require('miaow-thirdparty-plugin');
 var PackPlugin = require('miaow-pack-plugin');
