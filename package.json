@@ -1,7 +1,7 @@
 {
 	"name": "miaow-development-config",
 	"description": "开发模式的配置",
-	"version": "1.12.1",
+	"version": "1.12.2",
 	"repository": "miaowjs/miaow-development-config",
 	"author": {
 		"name": "anhulife",
