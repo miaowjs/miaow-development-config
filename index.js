@@ -141,6 +141,7 @@ var config = {
 				inlineParse,
 				urlParse,
 				vueParse,
+				babelParse,
 				amdParse,
 				inlineContentParse
 			]
