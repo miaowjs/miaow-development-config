@@ -1,7 +1,6 @@
 var path = require('path');
 
 var amdParse = require('miaow-amd-parse');
-var babelParse = require('miaow-babel-parse');
 var ftlParse = require('miaow-ftl-parse');
 var inlineParse = require('miaow-inline-parse');
 var lessParse = require('miaow-less-parse');
@@ -17,6 +16,15 @@ var autoprefixer = {
 	task: require('miaow-css-autoprefixer'),
 	options: {
 		browsers: ['> 1%', 'last 2 versions', 'iOS >= 6', 'Android >= 2.1', 'Explorer >= 7', 'Firefox >= 38', 'Chrome >= 30']
+	}
+};
+
+var babelParse = {
+	task: require('miaow-babel-parse'),
+	options: {
+		blacklist: ['strict'],
+		optional: ['es7.classProperties'],
+		modules: 'amd'
 	}
 };
 
@@ -120,14 +128,7 @@ var config = {
 				contentReplace,
 				inlineParse,
 				urlParse,
-				{
-					task: babelParse,
-					options: {
-						blacklist: ['strict'],
-						optional: ['es7.classProperties'],
-						modules: 'amd'
-					}
-				},
+				babelParse,
 				amdParse,
 				inlineContentParse
 			]
