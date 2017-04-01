@@ -4,7 +4,6 @@ var amdParse = require('miaow-amd-parse');
 var ftlParse = require('miaow-ftl-parse');
 var inlineParse = require('miaow-inline-parse');
 var lessParse = require('miaow-less-parse');
-var liveReload = require('miaow-livereload');
 var replace = require('miaow-replace');
 var urlParse = require('miaow-url-parse');
 var vueParse = require('miaow-vue-parse2');
@@ -187,12 +186,6 @@ var config = {
 						macroArgList: ['js', 'css', 'file', 'mockjax']
 					}
 				},
-				{
-					task: liveReload,
-					options: {
-						placeholder: '<#-- livereload -->'
-					}
-				},
 				inlineContentParse
 			]
 		},
@@ -203,12 +196,6 @@ var config = {
 				inlineParse,
 				urlParse,
 				contentReplace,
-				{
-					task: liveReload,
-					options: {
-						placeholder: '<!-- livereload -->'
-					}
-				},
 				inlineContentParse
 			]
 		}
